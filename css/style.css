@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
+  nav {
+    background-color: #078ed0;
+  }
+
+  input[type="submit"]:hover {
+    background-color: #0e76a9;
+  }
+
+  input[type="submit"] {
+    background-color: #078ed0;
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease-out;
+  }
+
+  .inputBox {
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
+  .box {
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 15px;
+    border-radius: 15px;
+    width: 20%;
+  }
+
+  fieldset {
+    border: 3px solid dodgerblue;
+  }
+
+  legend {
+    border: 1px solid dodgerblue;
+    padding: 10px;
+    text-align: center;
+    background-color: dodgerblue;
+    border-radius: 8px;
+  }
+
+  .inputBox {
+    position: relative;
+  }
+
+  .inputUser {
+    background: none;
+    border: none;
+    border-bottom: 1px solid gray;
+    outline: none;
+    color: gray;
+    font-size: 15px;
+    width: 100%;
+    letter-spacing: 2px;
+  }
+
+  .labelInput {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    pointer-events: none;
+    transition: 0.5s;
+    color: #59585b;
+  }
+
+  .inputUser:focus ~ .labelInput,
+  .inputUser:valid ~ .labelInput {
+    top: -20px;
+    font-size: 12px;
+    color: dodgerblue;
+  }
+
+  .inputs-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    gap: 20px;
+  }
+
+  .labelInput {
+    font-size: 16px;
+    color: #333;
+  }
+
+  .inputUser {
+    outline: none;
+    font-size: 16px;
+    padding: 10px;
+    margin-top: 24px;
+  }
+
+  .checkbox-label {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    color: #333;
+  }
+
+  .checkbox-input {
+    margin-right: 5px;
+  }
+  .form-check-input[type="checkbox"] {
+    transform: scale(1.4);
+   }
+   table {
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+   }
+   .table th {
+        font-size: 18px;
+    }
+
+    .swal2-confirm {
+        background-color: #078ed0 !important;
+      }
+
+      
+      
+    
