@@ -42,7 +42,7 @@ function validar(){
             icon: 'success',
             title: 'Cadastrado com sucesso!',
             showConfirmButton: false,
-            timer: 1500
+            timer: 2000
           })
           
     }

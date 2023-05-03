@@ -31,6 +31,7 @@
         $sql = "SELECT * FROM contatos ORDER BY id DESC";
 
         $result = $conexao->query($sql);
+          
     ?>
 
     <!DOCTYPE html>
@@ -72,7 +73,7 @@
             </div>
             <div class="row justify-content-center inputs-container" style="margin-top: 50px;">
                 <div class="col-md-5 inputBox mx-4">
-                    <input type="email" name="email" id="email" class="inputUser" placeholder="Ex.: leticia@gmail.com" onblur="ValidaEmail(this)"required>
+                    <input type="email" name="email" id="email" class="inputUser" placeholder="Ex.: leticia@gmail.com" onblur="ValidaEmail(this)" required>
                     <label for="email" class="labelInput">E-mail</label>
                 </div>
                 <div class="col-md-5 inputBox mx-4">
@@ -101,7 +102,7 @@
                 </div>
             </div>
             <div class="row justify-content-center inputs-container" style="margin-top: 50px;">
-                <div class="col-md-10 inputBox mx-4">
+                <div class="col-md-10 inputBox mx-4" id="align">
                     <input type="checkbox" id="sms" name="sms" value="sms"  class="form-check-input" style="display: inline-block;">
                     <label for="sms" class="form-check-label">Enviar notificações por SMS</label>
                 </div>
@@ -132,7 +133,7 @@
                             echo "<td class='text-center align-middle'>".$user_data['email']."</td>";
                             echo "<td class='text-center align-middle'>".$user_data['celular']."</td>";
                             echo "<td class='align-middle text-center'>
-                            <a class='btn btn-sm' data-bs-toggle='modal' data-bs-target='#exampleModal' data-id='".$user_data['id']."' onclick='editContato(".$user_data['id'].")'>
+                            <a class='btn btn-sm' data-bs-toggle='modal' data-bs-target='#exampleModal' onclick='editContato(".$user_data['id'].")'>
                                 <img src='assets/editar.png'>
                             </a>
 
@@ -155,28 +156,29 @@
                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                            <form id="formEditContato">
+                            <form id="formEditContato" method="POST" action="edit.php" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?php echo $id['id'] ?>">
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <b>Nome: </b>
-                                        <input type="text" value="" id="editnome" name="editnome" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <b>Data de nascimento: </b>
-                                        <input type="text" value="" id="editnascimento" name="editnascimento" class="form-control money">
-                                    </div>                             
-                                </div>
-                                <div class="row">
-                                    <div class="col-md-6">
-                                        <b>E-mail: </b>
-                                        <input type="text" value="" id="editemail" name="editemail" class="form-control">
-                                    </div>
-                                    <div class="col-md-6">
-                                        <b>Celular para contato: </b>
-                                        <input type="text"  value="" id="editcelular" name="editcelular" class="form-control">
-                                    </div>                             
-                                </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                <b>Nome: </b>
+                                <input type="text" value="" id="editnome" name="editnome" class="form-control">
+                            </div>
+                            <div class="col-md-6">
+                                <b>Data de nascimento: </b>
+                                <input type="text" value="" id="editnascimento" name="editnascimento" class="form-control">
+                            </div>                            
+                        </div>
+                    <div class="row mt-3"> 
+                        <div class="col-md-6">
+                        <b>E-mail: </b>
+                        <input type="text" value="" id="editemail" name="editemail" class="form-control" onblur="ValidaEmail(this)">
+                    </div>
+                    <div class="col-md-6">
+                        <b>Celular para contato: </b>
+                        <input type="text"  value="" id="editcelular" name="editcelular" class="form-control">
+                    </div>                             
+                </div>
+
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
@@ -203,6 +205,8 @@
             </div>
         </footer>
     </body> 
+
+
     <script>
     $('#btnSalvar').click(function() {
         var form = $('#formEditContato');
@@ -234,7 +238,9 @@
             success: function(data) {
                 // Preenche os campos da modal com as informações do usuário
                 $('#editnome').val(data.nome);
-                $('#editnascimento').val(data.data_nasc);
+                var dataNascimento = new Date(data.data_nasc);
+                var dataFormatada = dataNascimento.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                $('#editnascimento').val(dataFormatada);
                 $('#editemail').val(data.email);
                 $('#editcelular').val(data.celular);
             }
@@ -244,21 +250,28 @@
     </script>
     <script>
         $(document).ready(function(){
-    $('#nome').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ', {
+            $('#nome').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ', {
+            translation: { 
+            'S': { 
+                pattern: /[\p{L}\s]/u 
+            }
+            }
+        });
+        $('#editnome').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS ', {
         translation: { 
         'S': { 
             pattern: /[\p{L}\s]/u 
         }
         }
-    });
+        });
     
-    $('#profissao').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
+        $('#profissao').mask('SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS', {
         translation: { 
         'S': { 
             pattern: /[\p{L}\s]/u
         }
         }
-    });
+        });
     });
     $(document).ready(function(){
         $('#telefone').mask('(00) 0000-0000');
@@ -266,9 +279,12 @@
     $(document).ready(function(){
         $('#celular').mask('(00) 00000-0000');
     });
+    $(document).ready(function(){
+        $('#editcelular').mask('(00) 00000-0000');
+    });
     </script>
     <script>
-    function ValidaEmail(campo){
+        function ValidaEmail(campo){
                     if(campo.value!='' && campo.value!=null){
                     var f = campo.value
                     if((f.indexOf("@") == -1) || (f.indexOf(".") == -1) && (f != '')){

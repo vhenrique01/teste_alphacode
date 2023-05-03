@@ -1,33 +1,24 @@
 <?php
-    include_once('config.php');
+include_once('config.php');
 
-    if(!empty($_GET['id']))
-    {
-        $id = $_GET['id'];
-        $sqlSelect = "SELECT * FROM usuarios WHERE id=$id";
-        $result = $conexao->query($sqlSelect);
-        if($result->num_rows > 0)
-        {
-            while($user_data = mysqli_fetch_assoc($result))
-            {
-                $nome = $user_data['nome'];
-                $senha = $user_data['senha'];
-                $email = $user_data['email'];
-                $telefone = $user_data['telefone'];
-                $sexo = $user_data['sexo'];
-                $data_nasc = $user_data['data_nasc'];
-                $cidade = $user_data['cidade'];
-                $estado = $user_data['estado'];
-                $endereco = $user_data['endereco'];
-            }
-        }
-        else
-        {
-            header('Location: sistema.php');
-        }
+if (isset($_POST['id'])) {
+    $id = $_POST['id'];
+    $nome = $_POST['editnome'];
+    $data_nasc = $_POST['editnascimento'];
+    $email = $_POST['editemail'];
+    $celular = $_POST['editcelular'];
+
+    $sql = "UPDATE contatos SET nome='$nome', data_nasc='$data_nasc', email='$email', celular='$celular' WHERE id='$id'";
+
+    
+
+    if (mysqli_query($conexao, $sql)) {
+        echo "Contato atualizado com sucesso!";
+    } else {
+        echo "Erro ao atualizar o contato: " . mysqli_error($conexao);
     }
-    else
-    {
-        header('Location: sistema.php');
-    }
+}
+
+mysqli_close($conexao);
+
 ?>

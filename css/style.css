@@ -126,6 +126,22 @@ body {
         background-color: #078ed0 !important;
       }
 
+      .inputs-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input[type="checkbox"] {
+        margin-right: 10px;
+    }
+
+    #align{
+      margin-right: -1.5rem!important;
+      margin-left: -5.5rem!important; 
+    }
+    
       
       
     
